@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using static ConsoleMenu.IO;
 
 namespace ConsoleMenu
 {
@@ -21,33 +22,33 @@ namespace ConsoleMenu
                     optionNumber = GetChoosenOptionNumber();
                     Options[optionNumber].Start();
                 }
-                catch (ArgumentOutOfRangeException e)
+                catch (ArgumentOutOfRangeException)
                 {
-                    Console.WriteLine("Please, choose existing option.");
+                    PrintMessage("Please, choose existing option.");
                     Update();
                     continue;
                 }
-                catch (FormatException e)
+                catch (FormatException)
                 {
-                    Console.WriteLine("Incorrect option. Please, try again.");
+                    PrintMessage("Incorrect option. Please, try again.");
                     Update();
                     continue;
                 }
                 catch (ArgumentException e)
                 {
-                    Console.WriteLine(e.Message);
+                    PrintMessage(e.Message);
                     Update();
                     continue;
                 }
                 catch (InvalidDataException e)
                 {
-                    Console.WriteLine(e.Message);
+                    PrintMessage(e.Message);
                     Update();
                     continue;
                 }
                 catch (InvalidOperationException e)
                 {
-                    Console.WriteLine(e.Message);
+                    PrintMessage(e.Message);
                     Update();
                     continue;
                 }
@@ -60,19 +61,19 @@ namespace ConsoleMenu
         
         protected override void Display()
         {
-            Console.Clear();
-            Console.WriteLine("Current part of program: " + Title);
-            Console.WriteLine("Possible options:");
+            Clean();
+            PrintMessage("Current part of program: " + Title);
+            PrintMessage("Possible options:");
             
             for (int i = 0; i < Options.Count; i++)
             {
-                Console.WriteLine(i + 1 + "." + Options[i].Name);
+                PrintMessage(i + 1 + "." + Options[i].Name);
             }
         }
 
         protected override int GetChoosenOptionNumber()
         {
-            var s = Console.ReadLine();
+            var s = GetConsoleInput();
             return int.Parse(s) - 1;
         }
 
@@ -80,14 +81,14 @@ namespace ConsoleMenu
 
         protected override void Update()
         {
-            Console.WriteLine("To continue type anything");
-            Console.ReadLine();
+            PrintMessage("To continue enter anything");
+            GetEmptyEnter();
         }
 
         protected override void DisplayMessage(string message)
         {
-            Console.WriteLine(message);
-            Console.ReadLine();
+            PrintMessage(message);
+            GetEmptyEnter();
         }
     }
 }

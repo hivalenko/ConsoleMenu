@@ -5,8 +5,8 @@ namespace ConsoleMenu
 {
     public class Option
     {
-        readonly List<MulticastDelegate> _actions;
-        readonly List<object[]> _parameters;
+        private readonly List<MulticastDelegate> _actions;
+        private readonly List<object[]> _parameters;
         public string Name { get; }
         public bool IsFinal { get; private set; }
         
