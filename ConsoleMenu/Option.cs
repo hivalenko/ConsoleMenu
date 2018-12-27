@@ -5,30 +5,30 @@ namespace ConsoleMenu
 {
     public class Option
     {
-        public List<MulticastDelegate> Actions { get; private set; }
-        public List<object[]> Parameters { get; private set; }
-        public string Name { get; private set; }
-        public bool IsFinal;
+        readonly List<MulticastDelegate> _actions;
+        readonly List<object[]> _parameters;
+        public string Name { get; }
+        public bool IsFinal { get; private set; }
         
         
         public Option(string name, MulticastDelegate action, object[] parameters)
         {
             Name = name;
-            Actions = new List<MulticastDelegate>{ action };
-            Parameters = new List<object[]>{ parameters };
+            _actions = new List<MulticastDelegate>{ action };
+            _parameters = new List<object[]>{ parameters };
             IsFinal = false;
         }
 
         public void Add(MulticastDelegate action, object[] parameters)
         {
-            Actions.Add(action);
-            Parameters.Add(parameters);
+            _actions.Add(action);
+            _parameters.Add(parameters);
         }
 
         public void DeleteLast()
         {
-            Actions.RemoveAt(Actions.Count - 1);
-            Parameters.RemoveAt(Parameters.Count - 1);
+            _actions.RemoveAt(_actions.Count - 1);
+            _parameters.RemoveAt(_parameters.Count - 1);
         }
         
         public void SetFinal()
@@ -38,9 +38,9 @@ namespace ConsoleMenu
         
         public void Start()
         {
-            foreach (var action in Actions)
+            foreach (var action in _actions)
             {
-                action.DynamicInvoke(Parameters[Actions.IndexOf(action)]);
+                action.DynamicInvoke(_parameters[_actions.IndexOf(action)]);
             }
         }
     }

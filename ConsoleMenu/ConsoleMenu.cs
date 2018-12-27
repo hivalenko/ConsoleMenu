@@ -5,7 +5,7 @@ namespace ConsoleMenu
 {
     public class ConsoleMenu : Menu
     {
-        private string HelpInfo = "Your help info";
+        private const string HelpInfo = "Your help info";
         
         public ConsoleMenu(string title) : base(title){}
 
@@ -72,9 +72,8 @@ namespace ConsoleMenu
 
         protected override int GetChoosenOptionNumber()
         {
-            string s = Console.ReadLine();
-            int i = int.Parse(s) - 1;
-            return i;
+            var s = Console.ReadLine();
+            return int.Parse(s) - 1;
         }
 
         protected override void DisplayHelp() => DisplayMessage(HelpInfo);
