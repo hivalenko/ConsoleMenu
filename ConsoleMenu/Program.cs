@@ -6,9 +6,10 @@ namespace ConsoleMenu
     {
         static void Main(string[] args)
         {
-            ConsoleMenu testMenu = new ConsoleMenu("Root test menu");
-            ConsoleMenu testMenu1 = new ConsoleMenu("Root test menu 1");
-            ConsoleMenu testMenu2 = new ConsoleMenu("Root test menu 2");
+            var io = new IO();
+            var testMenu = new ConsoleMenu("Root test menu", io);
+            var testMenu1 = new ConsoleMenu("Root test menu 1", io);
+            var testMenu2 = new ConsoleMenu("Root test menu 2", io);
 
             object[] parametersS = {"string"};
             object[] parametersI = {3};

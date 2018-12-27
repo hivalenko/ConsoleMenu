@@ -1,14 +1,17 @@
 using System;
 using System.IO;
-using static ConsoleMenu.IO;
 
 namespace ConsoleMenu
 {
     public class ConsoleMenu : Menu
     {
         private const string HelpInfo = "Your help info";
-        
-        public ConsoleMenu(string title) : base(title){}
+        private readonly IO _io;
+
+        public ConsoleMenu(string title, IO io) : base(title)
+        {
+            _io = io;
+        }
 
         public override void Start()
         {
@@ -24,31 +27,31 @@ namespace ConsoleMenu
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    PrintMessage("Please, choose existing option.");
+                    _io.PrintMessage("Please, choose existing option.");
                     Update();
                     continue;
                 }
                 catch (FormatException)
                 {
-                    PrintMessage("Incorrect option. Please, try again.");
+                    _io.PrintMessage("Incorrect option. Please, try again.");
                     Update();
                     continue;
                 }
                 catch (ArgumentException e)
                 {
-                    PrintMessage(e.Message);
+                    _io.PrintMessage(e.Message);
                     Update();
                     continue;
                 }
                 catch (InvalidDataException e)
                 {
-                    PrintMessage(e.Message);
+                    _io.PrintMessage(e.Message);
                     Update();
                     continue;
                 }
                 catch (InvalidOperationException e)
                 {
-                    PrintMessage(e.Message);
+                    _io.PrintMessage(e.Message);
                     Update();
                     continue;
                 }
@@ -61,19 +64,19 @@ namespace ConsoleMenu
         
         protected override void Display()
         {
-            Clean();
-            PrintMessage("Current part of program: " + Title);
-            PrintMessage("Possible options:");
+            _io.Clean();
+            _io.PrintMessage("Current part of program: " + Title);
+            _io.PrintMessage("Possible options:");
             
             for (int i = 0; i < Options.Count; i++)
             {
-                PrintMessage(i + 1 + "." + Options[i].Name);
+                _io.PrintMessage(i + 1 + "." + Options[i].Name);
             }
         }
 
         protected override int GetChoosenOptionNumber()
         {
-            var s = GetConsoleInput();
+            var s = _io.GetConsoleInput();
             return int.Parse(s) - 1;
         }
 
@@ -81,14 +84,14 @@ namespace ConsoleMenu
 
         protected override void Update()
         {
-            PrintMessage("To continue enter anything");
-            GetEmptyEnter();
+            _io.PrintMessage("To continue enter anything");
+            _io.GetEmptyEnter();
         }
 
         protected override void DisplayMessage(string message)
         {
-            PrintMessage(message);
-            GetEmptyEnter();
+            _io.PrintMessage(message);
+            _io.GetEmptyEnter();
         }
     }
 }
