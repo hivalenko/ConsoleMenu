@@ -7,6 +7,7 @@ namespace ConsoleMenu
     {
         private readonly List<MulticastDelegate> _actions;
         private readonly List<object[]> _parameters;
+        public List<object> results;
         public string Name { get; }
         public bool IsFinal { get; private set; }
         
@@ -40,7 +41,7 @@ namespace ConsoleMenu
         {
             foreach (var action in _actions)
             {
-                action.DynamicInvoke(_parameters[_actions.IndexOf(action)]);
+                results.Add(action.DynamicInvoke(_parameters[_actions.IndexOf(action)]));
             }
         }
     }

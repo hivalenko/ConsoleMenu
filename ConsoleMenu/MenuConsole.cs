@@ -1,14 +1,15 @@
 using System;
 using System.IO;
+using System.Reflection;
 
 namespace ConsoleMenu
 {
-    public class ConsoleMenu : Menu
+    public class MenuConsole : Menu
     {
         private const string HelpInfo = "Your help info";
         private readonly IO _io;
 
-        public ConsoleMenu(string title, IO io) : base(title)
+        public MenuConsole(string title, IO io) : base(title)
         {
             _io = io;
         }
@@ -50,6 +51,12 @@ namespace ConsoleMenu
                     continue;
                 }
                 catch (InvalidOperationException e)
+                {
+                    _io.PrintMessage(e.Message);
+                    Update();
+                    continue;
+                }
+                catch (TargetInvocationException e)
                 {
                     _io.PrintMessage(e.Message);
                     Update();
