@@ -56,12 +56,12 @@ namespace ConsoleMenu
                     Update();
                     continue;
                 }
-                catch (TargetInvocationException e)
+                /*catch (TargetInvocationException e)
                 {
                     _io.PrintMessage(e.Message);
                     Update();
                     continue;
-                }
+                }*/
                 if (Options[optionNumber].IsFinal)
                 {
                     Stop();
